@@ -1,5 +1,10 @@
 {% set name = "pymeos" %}
-{% set version = "1.1.4" %}
+{% set major = 1 %}
+{% set minor = 1 %}
+{% set patch = 4 %}
+{% set version = major ~ '.' ~ minor ~ '.' ~ patch %}
+{% set minor_version = major ~ '.' ~ minor %}
+{% set next_minor_version = major ~ '.' ~ (minor + 1) %}
 
 package:
   name: {{ name|lower }}
@@ -11,7 +16,7 @@ source:
 
 build:
   noarch: python
-  number: 0
+  number: 1
   script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
@@ -21,7 +26,7 @@ requirements:
     - pip
   run:
     - python >3.7
-    - pymeos-cffi >=1.1.0,<2
+    - pymeos-cffi >={{ minor_version }},<{{ next_minor_version }}
     - python-dateutil
     - shapely
 
