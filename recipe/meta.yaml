@@ -1,5 +1,10 @@
 {% set name = "pymeos" %}
-{% set version = "1.1.4" %}
+{% set major = 1 %}
+{% set minor = 2 %}
+{% set patch = 0 %}
+{% set version = major ~ '.' ~ minor ~ '.' ~ patch %}
+{% set minor_version = major ~ '.' ~ minor %}
+{% set next_minor_version = major ~ '.' ~ (minor + 1) %}
 
 package:
   name: {{ name|lower }}
@@ -7,11 +12,11 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: c0ceaeb1886f87c6cfb4fc0af66798600ac2ef27ed585ee81bd977c90ab8065d
+  sha256: f941599d6f836d785c3b9ae14b53dc86fcb67881e5b5669ec8c2804245f4d7a0
 
 build:
   noarch: python
-  number: 0
+  number: 1
   script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
@@ -21,7 +26,7 @@ requirements:
     - pip
   run:
     - python >3.7
-    - pymeos-cffi >=1.1.0,<2
+    - pymeos-cffi >={{ minor_version }},<{{ next_minor_version }}
     - python-dateutil
     - shapely
 
